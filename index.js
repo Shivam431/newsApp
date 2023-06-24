@@ -6,8 +6,10 @@ const pgp= require('pg-promise')();
 const bcrypt=require('bcrypt');
 const session=require('express-session');
 const PORT=8080;
+const path=require('path');
 
-
+//createing partials
+const VIEWS_PATH= path.join(__dirname,'/views');
 //register session
 
 app.use(session({
@@ -24,8 +26,8 @@ const db =pgp(connectString);
 const SALT_ROUND =10;
 
 //configure view engine
-app.engine('mustache',mustacheExpress());
-app.set('views','./views');
+app.engine('mustache',mustacheExpress(VIEWS_PATH+'/partials','.mustache'));
+app.set('views',VIEWS_PATH);
 app.set('view engine','mustache');
 
 app.use(bodyParser.urlencoded({extended: false}));
