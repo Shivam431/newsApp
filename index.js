@@ -4,7 +4,17 @@ const mustacheExpress=require('mustache-express');
 const bodyParser=require('body-parser');
 const pgp= require('pg-promise')();
 const bcrypt=require('bcrypt');
+const session=require('express-session');
 const PORT=8080;
+
+
+//register session
+
+app.use(session({
+    secret: 'firstnodeproject',
+    resave: false,
+    saveUninitialized: false
+}))
 //connect DB
 const connectString="postgres://postgres:root@localhost:5432/newsdb";   //'postgres://username:password@host:port/database';
 const db =pgp(connectString);
@@ -33,7 +43,11 @@ app.post('/login',(req,res)=>{
         if(user){
             bcrypt.compare(password,user.password,function(error,result){
                 if(result){
-                    res.send("successs");
+                    //put username and user id in session
+                    if(req.session){
+                        req.session.user={userId: user.userid, username: user.username};
+                    }
+                    res.redirect('/users/article');
                 }
                 else{
                     res.render('login',{ message: "invalid credentials!"})
@@ -44,6 +58,10 @@ app.post('/login',(req,res)=>{
             res.render('login',{ message: "user not exist!"})
         }
     })
+})
+
+app.get('/users/article',(req,res)=>{
+    res.render('articles',{username: req.session.user.username});
 })
 app.post('/register',(req,res)=>{
 
