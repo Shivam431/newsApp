@@ -15,6 +15,9 @@ router.get('/',(req,res) => {
 })
 */
 
+router.get('/hello',(req,res,next)=>{
+  res.send("Hello World!");
+})
 //async and await function
 
 router.get('/',async (req,res) => {
