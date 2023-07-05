@@ -11,7 +11,7 @@ const checkAuthorize = require('./utils/checkAuthorization');
 const userRoutes = require('./routes/users');
 const indexRoutes = require('./routes/app');
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const connectString="postgres://postgres:root@localhost:5432/newsdb";   //'postgres://username:password@host:port/database';
 const VIEWS_PATH = path.join(__dirname,'/views');
 
