@@ -5,7 +5,7 @@
     {{> header}}
   </head>
   <body>
-  <h1>My articles</h1>
+  <h1>All articles</h1>
   <div class="container">
     {{> menu}}
             <div class="list-group">
@@ -15,13 +15,6 @@
                     </div>
                     <p class="mb-1">{{body}}</p>
                     <div class="articles-buttons">
-                    <a href="/users/articles/edit/4">
-                    <button type="button" class ="btn btn-primary">edit</button>
-                    </a>
-                    <form action='/user/delete-article' method=POST>
-                        <input type="hidden" name="1" value="1"/>
-                        <button type="button" class ="btn btn-danger">delete</button>
-                    </form>
                     </div>
                 {{/articles}}
             </div>
